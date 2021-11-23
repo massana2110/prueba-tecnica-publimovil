@@ -1,4 +1,12 @@
-# ejercicio2
+# Fetch API REST of Rick & Morty
+
+## Description
+
+Fetch data from API REST of Rick & Morty and present data in cards component with this information:
+- Name
+- State
+- Last ubication
+- First seen
 
 ## Project setup
 ```
@@ -14,11 +22,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

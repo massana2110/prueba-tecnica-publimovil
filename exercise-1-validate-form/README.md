@@ -1,4 +1,8 @@
-# exercise-1-validate-form
+# Create and validate forms
+
+## Description
+
+Authenticate to API with provided token. Then create, validate form and send data via POST method to the endpoint.
 
 ## Project setup
 ```
@@ -14,11 +18,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
