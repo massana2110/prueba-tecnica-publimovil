@@ -1,13 +1,21 @@
 <template>
-  <div id="app">
-    <p class="text-pink-400">Hello World</p>
+  <div id="app" class="w-screen h-screen flex justify-center items-center bg-blue-50">
+    <Form></Form>
   </div>
 </template>
 
 <script>
+/**
+ * Written by David Massana <david.massana.10@gmail.com>
+ * November 23, 2021
+ */
+
+// Component imports
+import Form from '@/components/Form'
+
 export default {
   name: 'App',
-  components: {},
+  components: {Form},
 };
 </script>
 
@@ -19,5 +27,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
+
+
 
 </style>
