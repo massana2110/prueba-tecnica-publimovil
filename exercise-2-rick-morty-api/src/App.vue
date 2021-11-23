@@ -1,5 +1,9 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <p class="text-red-400">
+      Hello
+    </p>
+  </div>
 </template>
 
 <script>
