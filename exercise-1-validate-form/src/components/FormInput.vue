@@ -1,5 +1,5 @@
 <template>
-  <div id="form-input">
+  <div id="form-input" class="flex flex-col">
     <label :for="id">{{ label }}</label>
     <input :id="id" :type="type" :value="value" @input="onInput" />
   </div>
