@@ -20,11 +20,12 @@ const store = new Vuex.Store({
     async sendData({commit}, payload) {
       try {
         const headers = {
-          Authorization: `Bearer ${PERSONAL_TOKEN}`,
+          Authorization: `${PERSONAL_TOKEN}`,
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin' : '*'
         };
 
-        const res = await axios.post(API_URL, payload, {headers});
+        const res = await axios.post(`${API_URL}/v1/players`, payload, {headers});
 
         console.log(res);
 

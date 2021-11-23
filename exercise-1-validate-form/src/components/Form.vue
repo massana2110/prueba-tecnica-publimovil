@@ -1,5 +1,7 @@
 <template>
-  <section class="flex flex-col justify-center items-center w-4/5 sm:w-9/12">
+  <section
+    class="flex flex-col justify-center items-center w-4/5 sm:w-9/12 max-w-lg"
+  >
     <div
       id="user-icon"
       class="bg-gradient-purple p-8 w-16 rounded-full relative"
@@ -39,7 +41,17 @@
       ></form-input>
 
       <button
-        class="submit-btn w-2/3 rounded-full mx-auto block py-3 text-white mt-4"
+        class="
+          submit-btn
+          w-2/3
+          sm:w-2/4
+          rounded-full
+          mx-auto
+          block
+          py-3
+          text-white
+          mt-4
+        "
         @click="submitData"
       >
         Submit
@@ -54,7 +66,7 @@
  * November 23, 2021
  */
 import FormInput from '@/components/FormInput';
-import {mapActions} from 'vuex'
+import {mapActions} from 'vuex';
 
 export default {
   name: 'Form',
@@ -66,17 +78,17 @@ export default {
   }),
   methods: {
     ...mapActions(['sendData']),
-    submitData(){
+    submitData() {
       // TODO: Validate data first
       const data = {
         name: this.frmName,
         email: this.frmEmail,
-        phone: this.frmPhoneNumber
-      }
+        phone: this.frmPhoneNumber,
+      };
 
-      this.sendData(data)
-    }
-  }
+      this.sendData(data);
+    },
+  },
 };
 </script>
 
