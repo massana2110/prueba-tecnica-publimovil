@@ -18,12 +18,21 @@ const store = new Vuex.Store({
   actions: {
     // Send user data to API
     async sendData({commit}, payload) {
-      const headers = {
-        'Authorization': `Bearer ${PERSONAL_TOKEN}`,
-        'Content-Type': 'application/json'
-      }
+      try {
+        const headers = {
+          Authorization: `Bearer ${PERSONAL_TOKEN}`,
+          'Content-Type': 'application/json',
+        };
 
-      const res = await axios.post(API_URL, payload, {headers})
+        const res = await axios.post(API_URL, payload, {headers});
+
+        console.log(res);
+
+        commit('setCurrentUser', payload)
+
+      } catch (error) {
+        console.error(error)
+      }
     },
   },
   mutations: {

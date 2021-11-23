@@ -15,6 +15,8 @@
         :id="'NameInput'"
         :type="'text'"
         :label="'Name'"
+        :name="'name'"
+        :validate="'required'"
         v-model="frmName"
       ></form-input>
 
@@ -22,6 +24,8 @@
         :id="'EmailInput'"
         :type="'email'"
         :label="'Email'"
+        :name="'email'"
+        :validate="'required|email'"
         v-model="frmEmail"
       ></form-input>
 
@@ -29,10 +33,17 @@
         :id="'PhoneInput'"
         :type="'text'"
         :label="'Phone Number'"
+        :name="'phone'"
+        :validate="'required'"
         v-model="frmPhoneNumber"
       ></form-input>
 
-      <button class="submit-btn w-2/3 rounded-full mx-auto block py-3 text-white mt-4">Submit</button>
+      <button
+        class="submit-btn w-2/3 rounded-full mx-auto block py-3 text-white mt-4"
+        @click="submitData"
+      >
+        Submit
+      </button>
     </div>
   </section>
 </template>
@@ -43,6 +54,7 @@
  * November 23, 2021
  */
 import FormInput from '@/components/FormInput';
+import {mapActions} from 'vuex'
 
 export default {
   name: 'Form',
@@ -52,11 +64,25 @@ export default {
     frmEmail: '',
     frmPhoneNumber: '',
   }),
+  methods: {
+    ...mapActions(['sendData']),
+    submitData(){
+      // TODO: Validate data first
+      const data = {
+        name: this.frmName,
+        email: this.frmEmail,
+        phone: this.frmPhoneNumber
+      }
+
+      this.sendData(data)
+    }
+  }
 };
 </script>
 
 <style scoped>
-.bg-gradient-purple, .submit-btn {
+.bg-gradient-purple,
+.submit-btn {
   background: #da4453;
   background: -webkit-linear-gradient(to left, #89216b, #da4453);
   background: linear-gradient(to left, #89216b, #da4453);

@@ -1,7 +1,17 @@
 <template>
   <div id="form-input" class="flex flex-col">
     <label :for="id">{{ label }}</label>
-    <input :id="id" :type="type" :value="value" @input="onInput" />
+    <input
+      :id="id"
+      :type="type"
+      :value="value"
+      :name="name"
+      v-validate="validate"
+      @input="onInput"
+    />
+    <span v-show="errors.has(name)" class="text-red-600">
+      {{ errors.first(name) }}
+    </span>
   </div>
 </template>
 
@@ -12,12 +22,18 @@
  */
 export default {
   name: 'FormInput',
+  inject: ['$validator'],
   props: {
     id: {
       type: String,
       required: true,
     },
     label: {
+      type: String,
+      required: true,
+      default: '',
+    },
+    name: {
       type: String,
       required: true,
       default: '',
@@ -32,6 +48,13 @@ export default {
       required: true,
       default: '',
     },
+    validate: {
+      type: String,
+      required: true,
+    },
+  },
+  created() {
+    this.$validator = this.$parent.$validator;
   },
   methods: {
     onInput(event) {
