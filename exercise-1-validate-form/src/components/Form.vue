@@ -2,6 +2,8 @@
   <section
     class="flex flex-col justify-center items-center w-4/5 sm:w-9/12 max-w-lg"
   >
+    <alert v-if="alert" :type="alertType" :message="alertMessage"></alert>
+
     <div
       id="user-icon"
       class="bg-gradient-purple p-8 w-16 rounded-full relative"
@@ -54,7 +56,7 @@
         "
         @click="submitData"
       >
-        Submit
+        {{ btnLabel }}
       </button>
     </div>
   </section>
@@ -66,27 +68,74 @@
  * November 23, 2021
  */
 import FormInput from '@/components/FormInput';
-import {mapActions} from 'vuex';
+import Alert from '@/components/Alert.vue';
+import {mapActions, mapState} from 'vuex';
 
 export default {
   name: 'Form',
-  components: {FormInput},
+  components: {FormInput, Alert},
   data: () => ({
     frmName: '',
     frmEmail: '',
     frmPhoneNumber: '',
+    btnLabel: 'Submit',
+
+    alert: false,
+    alertType: '',
+    alertMessage: '',
   }),
+  computed: {
+    ...mapState(['success']),
+  },
+  inject: ['$validator'],
   methods: {
     ...mapActions(['sendData']),
     submitData() {
-      // TODO: Validate data first
-      const data = {
-        name: this.frmName,
-        email: this.frmEmail,
-        phone: this.frmPhoneNumber,
-      };
+      this.$validator.validate().then(async (valid) => {
+        console.log('Validating...');
 
-      this.sendData(data);
+        if (!valid) {
+          this.configAlert(false)
+          return;
+        } else {
+          this.btnLabel = 'Guardando...';
+
+          const data = {
+            name: this.frmName,
+            email: this.frmEmail,
+            phone: this.frmPhoneNumber,
+          };
+
+          await this.sendData(data);
+
+          this.configAlert(true);
+
+          this.btnLabel = 'Submit';
+        }
+      });
+    },
+
+    configAlert(flag) {
+      if (flag) {
+        // on api responses
+        if (this.success) {
+          this.alertType = 'success';
+          this.alertMessage = 'User saved succesfully';
+        } else {
+          this.alertType = 'error';
+          this.alertMessage = 'There was an issue on saving user.';
+        }
+      } else {
+        // on no valid input fields
+        this.alertType = 'error'
+        this.alertMessage = 'There are errors on input fields'
+      }
+
+      this.alert = true;
+
+      setTimeout(() => {
+        this.alert = false;
+      }, 3000);
     },
   },
 };

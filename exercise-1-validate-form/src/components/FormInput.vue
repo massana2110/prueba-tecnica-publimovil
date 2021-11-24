@@ -1,15 +1,16 @@
 <template>
-  <div id="form-input" class="flex flex-col">
-    <label :for="id">{{ label }}</label>
+  <div id="form-input" class="flex flex-col mb-5">
+    <label class="font-bold text-gray-600 text-sm sm:text-md mb-1" :for="id">{{ label }}</label>
     <input
       :id="id"
       :type="type"
       :value="value"
       :name="name"
-      v-validate="validate"
+      v-validate="validate || phoneValidate"
       @input="onInput"
+      class="bg-gray-100 outline-none py-3 px-2 rounded-lg"
     />
-    <span v-show="errors.has(name)" class="text-red-600">
+    <span v-show="errors.has(name)" class="text-red-600 text-xs mt-2">
       {{ errors.first(name) }}
     </span>
   </div>

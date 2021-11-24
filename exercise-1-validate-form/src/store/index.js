@@ -13,7 +13,7 @@ const PERSONAL_TOKEN = process.env.VUE_APP_API_TOKEN || ''; // add token here
 
 const store = new Vuex.Store({
   state: {
-    currentUser: {},
+    success: false,
   },
   actions: {
     // Send user data to API
@@ -29,16 +29,17 @@ const store = new Vuex.Store({
 
         console.log(res);
 
-        commit('setCurrentUser', payload)
+        if(res.status === 200) commit('setSuccess', true)
 
       } catch (error) {
         console.error(error)
+        commit('setSuccess', false)
       }
     },
   },
   mutations: {
-    setCurrentUser(state, user) {
-      state.currentUser = user;
+    setSuccess(state, flag) {
+      state.success = flag;
     },
   },
 });
