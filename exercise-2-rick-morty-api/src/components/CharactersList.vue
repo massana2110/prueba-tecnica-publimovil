@@ -1,33 +1,33 @@
 <template>
-  <div class="container flex justify-center items-center block absolute w-full">
-    <ul
-      class="
-        grid
-        grid-cols-1
-        sm:grid-cols-2
-        lg:grid-cols-3
-        w-full
-      "
-    >
-      <li class="text-white">1</li>
-      <li class="text-white">2</li>
-      <li class="text-white">3</li>
-      <li class="text-white">4</li>
-      <li class="text-white">5</li>
-      <li class="text-white">6</li>
-    </ul>
-  </div>
+  <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-4/5">
+    <li v-for="character in characters" :key="character.id">
+      <character-item :character="character"></character-item>
+    </li>
+  </ul>
 </template>
 
 <script>
+/**
+ * Written by David Massana <david.massana.10@gmail.com>
+ * November 24, 2021
+ */
+import {useStore} from 'vuex';
+import {computed} from 'vue'
+
+import CharacterItem from './CharacterItem.vue'
+
 export default {
   name: 'CharacterList',
-  props: {
-    characters: {
-      type: Array,
-      required: true,
-    },
-  },
+  components: {CharacterItem},
+  setup(){
+    const store = useStore();
+
+    const characters = computed(() => store.state.characters);
+
+    return {
+      characters,
+    };
+  }
 };
 </script>
 
