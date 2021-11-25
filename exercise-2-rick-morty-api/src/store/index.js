@@ -22,17 +22,30 @@ const store = createStore({
         for (let index = 1; index <= maxCharacters; index++) {
           idCharacters.push(randomNumber());
         }
-
+        // get characters
         const response = await axios.get(
           `${API_URL}/character/${idCharacters.join()}`
         );
+        
+        // petition the first episode of characters
+        const episodes = response.data.map(async (char) => {
+          
+          const firstEpisode = await axios.get(char.episode[0]).then(ep => {
+            return {...char, firstEpisode: ep.data.name};  
+          })
+          
+          return firstEpisode
+        });
 
-        commit('setCharacters', response.data)
-        commit('setSuccess', true)
+        // tranform promise to its results
+        const transformedData = await Promise.all(episodes)
 
+        commit('setCharacters', transformedData);
+        commit('setSuccess', true);
+        
       } catch (error) {
         console.error('There was an error fetching data: ', error);
-        commit('setSuccess', false)
+        commit('setSuccess', false);
       }
     },
   },
@@ -40,9 +53,9 @@ const store = createStore({
     setCharacters(state, characters) {
       state.characters = characters;
     },
-    setSuccess(state, flag){
-        state.success = flag
-    }
+    setSuccess(state, flag) {
+      state.success = flag;
+    },
   },
   getters: {},
 });

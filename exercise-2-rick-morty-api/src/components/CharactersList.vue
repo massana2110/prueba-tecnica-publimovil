@@ -1,6 +1,6 @@
 <template>
-  <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-4/5">
-    <li v-for="character in characters" :key="character.id">
+  <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-4/5 mt-10">
+    <li class="flex justify-center" v-for="character in characters" :key="character.id">
       <character-item :character="character"></character-item>
     </li>
   </ul>
