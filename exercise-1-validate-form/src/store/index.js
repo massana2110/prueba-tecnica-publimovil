@@ -25,11 +25,11 @@ const store = new Vuex.Store({
           'Access-Control-Allow-Origin' : '*'
         };
 
-        const res = await axios.post(`${API_URL}/v1/players`, payload, {headers});
+        const {data, status} = await axios.post(`${API_URL}/v1/players`, payload, {headers});
 
-        console.log(res);
+        console.log(data.message);
 
-        if(res.status === 200) commit('setSuccess', true)
+        if(status === 200) commit('setSuccess', true)
 
       } catch (error) {
         console.error(error)

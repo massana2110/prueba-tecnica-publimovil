@@ -5,7 +5,7 @@
         ? 'bg-red-600 text-red-200'
         : 'bg-green-600 text-green-200',
     ]"
-    class="flex justify-between shadow-inner rounded p-3 w-full sm:w-4/5 md:w-1/2"
+    class="flex justify-center shadow-inner rounded p-3 mb-4 w-full"
   >
     <p class="self-center text-sm">{{ message }}</p>
   </div>
@@ -25,4 +25,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

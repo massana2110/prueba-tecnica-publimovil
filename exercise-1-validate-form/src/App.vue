@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="w-screen h-screen overflow-y-auto flex justify-center items-center py-10 bg-blue-50">
+  <div id="app" class="w-screen min-h-screen overflow-y-auto flex justify-center items-center py-10 bg-blue-50">
     <Form></Form>
   </div>
 </template>

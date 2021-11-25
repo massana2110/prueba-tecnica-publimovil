@@ -2,8 +2,6 @@
   <section
     class="flex flex-col justify-center items-center w-4/5 sm:w-9/12 max-w-lg"
   >
-    <alert v-if="alert" :type="alertType" :message="alertMessage"></alert>
-
     <div
       id="user-icon"
       class="bg-gradient-purple p-8 w-16 rounded-full relative"
@@ -14,7 +12,11 @@
         alt="user-icon"
       />
     </div>
+    
     <div id="form" class="w-full bg-white shadow-lg p-10 -m-7 rounded">
+      
+      <alert v-if="alert" :type="alertType" :message="alertMessage"></alert>
+
       <form-input
         :id="'NameInput'"
         :type="'text'"
@@ -39,6 +41,7 @@
         :label="'Phone Number'"
         :name="'phone'"
         :validate="'required'"
+        :phoneTest="validPhone"
         v-model="frmPhoneNumber"
       ></form-input>
 
@@ -74,10 +77,22 @@ import {mapActions, mapState} from 'vuex';
 export default {
   name: 'Form',
   components: {FormInput, Alert},
+  watch: {
+    frmPhoneNumber(newVal) {
+      const phoneRegexp = /^\d{4}-\d{4}$/;
+
+      if (phoneRegexp.test(newVal)) {
+        this.validPhone = true;
+      } else {
+        this.validPhone = false;
+      }
+    },
+  },
   data: () => ({
     frmName: '',
     frmEmail: '',
     frmPhoneNumber: '',
+    validPhone: false,
     btnLabel: 'Submit',
 
     alert: false,
@@ -92,10 +107,9 @@ export default {
     ...mapActions(['sendData']),
     submitData() {
       this.$validator.validate().then(async (valid) => {
-        console.log('Validating...');
-
-        if (!valid) {
-          this.configAlert(false)
+        
+        if (!valid || !this.validPhone || !this.frmName || !this.frmEmail) {
+          this.configAlert(false);
           return;
         } else {
           this.btnLabel = 'Guardando...';
@@ -127,8 +141,8 @@ export default {
         }
       } else {
         // on no valid input fields
-        this.alertType = 'error'
-        this.alertMessage = 'There are errors on input fields'
+        this.alertType = 'error';
+        this.alertMessage = 'There are errors on input fields';
       }
 
       this.alert = true;
@@ -147,5 +161,10 @@ export default {
   background: #da4453;
   background: -webkit-linear-gradient(to left, #89216b, #da4453);
   background: linear-gradient(to left, #89216b, #da4453);
+  transition: all 0.25s ease-in;
+}
+
+.submit-btn:hover {
+  box-shadow: -1px -1px 15px 1px red, 1px 1px 15px 1px blue;
 }
 </style>

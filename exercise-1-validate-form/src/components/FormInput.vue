@@ -1,6 +1,8 @@
 <template>
   <div id="form-input" class="flex flex-col mb-5">
-    <label class="font-bold text-gray-600 text-sm sm:text-md mb-1" :for="id">{{ label }}</label>
+    <label class="font-bold text-gray-600 text-sm sm:text-md mb-1" :for="id">{{
+      label
+    }}</label>
     <input
       :id="id"
       :type="type"
@@ -12,6 +14,9 @@
     />
     <span v-show="errors.has(name)" class="text-red-600 text-xs mt-2">
       {{ errors.first(name) }}
+    </span>
+    <span v-show="id === 'PhoneInput' && !phoneTest && value" class="text-red-600 text-xs mt-2">
+      Expected format of phone number: xxxx-xxxx
     </span>
   </div>
 </template>
@@ -52,6 +57,10 @@ export default {
     validate: {
       type: String,
       required: true,
+    },
+    phoneTest: {
+      type: Boolean,
+      default: true,
     },
   },
   created() {

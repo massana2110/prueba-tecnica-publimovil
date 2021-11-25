@@ -18,3 +18,8 @@ npm run serve
 ```
 npm run build
 ```
+
+### Env file 
+
+This project use env file for config personal information like Token. Create .env file at root of the project,
+put the variable name "VUE_APP_API_TOKEN" with the provided token as a value.
